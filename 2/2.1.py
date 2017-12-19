@@ -3,9 +3,9 @@ import random
 numbers = list()
 
 #filling list with rnd numbers
-for i in range(10):
-    numbers.append(random.randint(1, 100))
 
+
+numbers = [random.randint(1, 100) for i in range(10)]
 #print rnd list
 print(numbers)
 
