@@ -1,40 +1,57 @@
 import argparse
 import os
-'''
-
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-path", type=str,
-                    help="the folder path", default="")
+parser.add_argument("-d", type=str,
+                    help="the folder path", default=".")
 parser.add_argument("-type", type=str,
                     help="file type filter", default="")
 parser.add_argument("--sub",
-                    help="show files in subfolders", action="store_true")
-parser.add_argument("--d",
-                    help="show directories", action="store_true")
+                    help="show files in subfolders", action="store_true", default=False)
+parser.add_argument("--dirs",
+                    help="show directories", action="store_true", default=False)
 
 args = parser.parse_args()
 
 
-# print(args)
+print(args)
 
 
-def get_files_and_directories(path, extension=".html", show_folders=False, show_subfolders_content=True):
+def get_files_and_directories(path, extension="", show_folders=False, show_subfolders_content=False):
+
     if show_subfolders_content:
         for rootdir, dirs, files in os.walk(path):
             if show_folders:
-                print("-"+os.path.split(rootdir)[1])
+
+                if(rootdir == path):
+                    print(os.path.split(rootdir)[1])
+                else: print(str(rootdir).replace(path, ''))
+
             for file in files:
-                if file.endswith(extension):
-                    print("--"+file)
+
+                if len(extension ) > 0:
+                    if file.endswith(extension): print("\t--"+file)
+                else: print("\t--"+file)
     else:
         content = os.listdir(path)
-        files = list([file for file in os.listdir(path) if os.path.isfile(file) and file.endswith(extension)])
 
-        if show_folders: print(content)
-        else: print(files)
+        files = list([file for file in content if os.path.isfile(os.path.join(path,file))])
+
+        if show_folders:
+            for item in content:
+                if os.path.isdir(os.path.join(path,item)):
+                    print(item)
 
 
-res = get_files_and_directories("/home/mchernetska/PythonProjects/pythonhw")
+        for file in files:
 
-'''
+            if len(extension ) > 0:
+                if file.endswith(extension): print(file)
+
+            else:
+                print(file)
+
+
+res = get_files_and_directories(args.d, args.type, args.dirs, args.sub)
+
+
