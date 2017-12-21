@@ -1,6 +1,5 @@
 import argparse
 import os
-import time
 import datetime
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", type=str,

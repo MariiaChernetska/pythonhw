@@ -1,26 +1,26 @@
 class CustomParentException(Exception):
 
-    def __init__(self, *variables):
+    def __init__(self, *args):
 
-        for var in variables:
+        for var in args:
             print(var)
 
         #Exception.__init__(self, 'Parent exception')
 
 class CustomChildException1(CustomParentException):
 
-    def __init__(self, *variables):
+    def __init__(self, *args):
 
-        for var in variables:
+        for var in args:
             print(var)
 
-        CustomParentException.__init__(self, 'Exception is raised because probability is '+str(float(variables[0])))
+        CustomParentException.__init__(self, 'Exception is raised because probability is '+str(float(args[0])))
 
 class CustomChildException2(CustomParentException):
 
-    def __init__(self, *variables):
+    def __init__(self, *args):
 
-        for var in variables:
+        for var in args:
             print(var)
 
         CustomParentException.__init__(self, 'Hello from child 2 exception')
